@@ -1,0 +1,30 @@
+<div class="container" *ngIf="currentTicket">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="image-wrapper">
+        <img src="{{ currentTicket.imageUrl }}" title="{{ currentTicket.eventTitle }}">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="detail-title">
+        <h2>{{ currentTicket.eventTitle }}</h2>
+        <hr>
+      </div>
+      <div class="detail-body">
+        <p>{{ currentTicket.location }}</p>
+        <p>{{ currentTicket.date }}</p>
+        <p>{{ currentTicket.description }}</p>
+        <p><i>{{ currentTicket.quantity }} tickets left!</i></p>
+        <p style="font-size: 30px">
+          <span class="text-danger m-2" style="font-size: 16px;"><del>${{currentTicket.price}}</del></span>
+          <span class="text-success">${{currentTicket.price - ((currentTicket.discount/100 *
+            currentTicket.price))}}</span>
+        </p>
+        <button class="btn btn-success w-50" (click)="buyTicket(currentTicket)" [disabled]="!currentTicket.quantity">
+          BUY </button>
+        <button class="btn btn-secondary" (click)="onBack()"><i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
