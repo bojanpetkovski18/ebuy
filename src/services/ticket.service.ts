@@ -11,21 +11,21 @@ const HeaderOptions = {
   providedIn: 'root',
 })
 export class TicketService {
-  private path: string = 'http://localhost:3000/Tickets';
+  private apiUrl: string = 'http://localhost:3000/Tickets';
 
   constructor(private http: HttpClient) {}
 
   public getTickets(): Observable<ITicket[]> {
-    return this.http.get<ITicket[]>(this.path);
+    return this.http.get<ITicket[]>(this.apiUrl);
   }
 
   public getTicket(id: number): Observable<ITicket> {
-    return this.http.get<ITicket>(this.path + '/' + id);
+    return this.http.get<ITicket>(this.apiUrl + '/' + id);
   }
 
   public updateTicket(ticket: ITicket): Observable<ITicket> {
     return this.http.put<ITicket>(
-      this.path + '/' + ticket.id,
+      this.apiUrl + '/' + ticket.id,
       ticket,
       HeaderOptions
     );

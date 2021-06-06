@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { ITicket } from 'src/app/interfaces/ticket';
-import { CommService } from 'src/services/comm.service';
+import { User } from 'src/app/interfaces/user';
+import { AuthService } from 'src/services/auth.service';
 import { TicketService } from 'src/services/ticket.service';
 
 @Component({
@@ -11,13 +13,24 @@ import { TicketService } from 'src/services/ticket.service';
 export class TicketItemComponent implements OnInit {
   @Input() public ticket: ITicket;
   public currentTicket: ITicket;
+  public currentUser: User;
 
   constructor(
     private ticketService: TicketService,
-    private commService: CommService
+    private authService: AuthService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getAccounts().subscribe((res: User[]) => {
+      this.currentUser = res[0];
+    });
+  }
+
+  getAccounts() {
+    return this.authService
+      .getAccounts()
+      .pipe(map((items) => items.filter((item) => item.isLoggedIn)));
+  }
 
   addToFaveourites(ticket: ITicket) {
     ticket.isFavourite = !this.ticket.isFavourite;
@@ -25,9 +38,14 @@ export class TicketItemComponent implements OnInit {
   }
 
   buyTicket(ticket: ITicket) {
-    if (this.ticket.quantity > 0) {
-      ticket.quantity = +this.ticket.quantity - 1;
-      this.ticketService.updateTicket(ticket).subscribe(() => {});
+    if (this.currentUser === undefined || !this.currentUser.isLoggedIn) {
+      alert('You need to be signed in.');
+      return;
+    } else {
+      if (this.ticket.quantity > 0) {
+        ticket.quantity = +this.ticket.quantity - 1;
+        this.ticketService.updateTicket(ticket).subscribe(() => {});
+      }
     }
   }
 }

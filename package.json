@@ -21,9 +21,12 @@
     "@angular/platform-browser": "~11.0.5",
     "@angular/platform-browser-dynamic": "~11.0.5",
     "@angular/router": "~11.0.5",
+    "bcryptjs": "^2.4.3",
     "bootstrap": "^4.6.0",
     "jquery": "^3.6.0",
+    "password-hash": "^1.2.2",
     "rxjs": "~6.6.0",
+    "ts-md5": "^1.2.8",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },
