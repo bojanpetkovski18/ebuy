@@ -87,7 +87,7 @@ export class SignupComponent implements OnInit {
     if (!flag) {
       this.authService.signup(newUser).subscribe(() => {
         this.getAccounts();
-        this.router.navigate(['/']);
+        window.location.assign('/');
       });
     }
   }

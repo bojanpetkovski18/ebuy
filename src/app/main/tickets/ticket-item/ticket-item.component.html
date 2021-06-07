@@ -16,7 +16,7 @@
     <span>${{ticket.price - ((ticket.discount/100 * ticket.price))}}</span>
   </div>
   <button [title]="ticket.quantity ? 'Buy a ticket' : 'Out of stock!'" class="btn bg-dark m-1 text-white"
-    (click)="buyTicket(ticket)" [disabled]="!ticket.quantity"><i class="fas fa-shopping-bag"></i> Buy</button>
+    routerLink="/tickets/{{ticket.id}}" [disabled]="!ticket.quantity"><i class="fas fa-shopping-bag"></i> Buy</button>
   <button [title]="ticket.isFavourite ? 'Remove from Favourites' : 'Add to Favourites'" class="btn bg-dark m-1"
     [ngClass]="ticket.isFavourite ? 'text-warning' : 'text-light'" (click)="addToFaveourites(ticket)"><i
       class="fas fa-star"></i></button>

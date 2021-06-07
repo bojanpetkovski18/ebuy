@@ -70,7 +70,7 @@ export class ModalComponent implements OnInit {
       } else {
         currentUser.isLoggedIn = true;
         this.authService.login(currentUser).subscribe(() => {
-          this.router.navigate(['/']);
+          window.location.assign('/');
         });
       }
     }, 500);
